@@ -11,20 +11,26 @@
                         <a class="nav-link" href="/">Home</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="about">About</a>
+                        <a class="nav-link" href="{{path('about')}}">About</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="blog">Blog</a>
+                        <a class="nav-link" href="{{path('blog')}}">Blog</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="features">Features</a>
+                        <a class="nav-link" href="{{path('features')}}">Features</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="contact">Contact Us</a>
+                        <a class="nav-link" href="{{path('contact')}}">Contact</a>
                      </li>
-                     <li class="nav-item">
+                     {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                           <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_login') }}">Login</a>
                      </li>
+                     {% else %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                     </li>
+                     {% endif %}
                      <li class="nav-item">
                         <a class="nav-link" href="#"><img src="images/serach-icon.png"></a>
                      </li>
