@@ -15,7 +15,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, SectionRepository $sectionRepository): Response
     {
         // si on est déjà connecté et qu'on souhaite revenir sur login
-        if($this->getUser()) {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             // on retourne sur l'accueil
             return $this->redirectToRoute('home');
         }

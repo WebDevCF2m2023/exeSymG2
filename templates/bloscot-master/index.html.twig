@@ -36,7 +36,7 @@
          <!-- banner section start --> 
          <div class="container-fluid">
             <div class="banner_section layout_padding">
-               <h1 class="banner_taital">welcome <br>our blog</h1>
+               <h1 class="banner_taital">welcome <br>{% if is_granted('IS_AUTHENTICATED_FULLY')  %}{{ app.user.username }}{% else %}to you{% endif %}</h1>	
                <div id="my_slider" class="carousel slide" data-ride="carousel">
                   <div class="carousel-inner">
                      <div class="carousel-item active">

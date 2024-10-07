@@ -1,10 +1,9 @@
-{% extends 'bloscot-master/index.html.twig' %}
+{% extends 'home/template.front.html.twig' %}
 
+{% block title %}{{ parent() }}{% endblock %}
 
-{% block title %}{{ parent() }} | Accueil{% endblock %}
-
-{% block lead %}Ceci est la page d'accueil de notre site{% endblock %}
+{% block lead %}{% endblock %}
 
 {% block main %}
-    {{ dump(postPartic) }}
+
 {% endblock %}

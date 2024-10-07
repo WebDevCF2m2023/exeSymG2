@@ -22,15 +22,21 @@
                      <li class="nav-item">
                         <a class="nav-link" href="{{path('contact')}}">Contact</a>
                      </li>
-                     {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                           <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">Login</a>
-                     </li>
-                     {% else %}
+                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+               <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+               </li>
+                  {# et si on est admin #}
+                  {% if is_granted("ROLE_ADMIN") %}
                         <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-                     </li>
-                     {% endif %}
+                           <a class="nav-link" href="/admin">Administration</a>
+                        </li>
+                        {% endif %}
+               {% else %}
+               <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+               </li>
+               {% endif %}
                      <li class="nav-item">
                         <a class="nav-link" href="#"><img src="images/serach-icon.png"></a>
                      </li>

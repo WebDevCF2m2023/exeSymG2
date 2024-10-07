@@ -11,7 +11,7 @@ class homeController extends AbstractController
     #[Route(path: '/', name: 'home')]
     public function index(): Response
     {
-        return $this->render('home/index.html.twig');
+        return $this->render('bloscot-master/index.html.twig');
     }
 
     #[Route(path: '/about', name: 'about')]
@@ -37,6 +37,8 @@ class homeController extends AbstractController
     {
         return $this->render('bloscot-master/contact.html.twig');
     }
+
+    
 
     
 }

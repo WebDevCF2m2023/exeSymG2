@@ -1,0 +1,10 @@
+{% extends 'bloscot-master/adminIndex.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block main %}
+<ul>
+    <li><a href="{{ path('app_admin_section_index') }}">Crud des sections</a></li>
+    <li><a href="{{ path('app_admin_post_index') }}">Crud des postes</a></li>
+</ul>
+{% endblock %}

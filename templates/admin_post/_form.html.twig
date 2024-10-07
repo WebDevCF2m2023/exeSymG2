@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Post</h5>
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.user) }}
+        {{ form_widget(form.user) }}
+        {{ form_errors(form.user) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.postTitle) }}
+        {{ form_widget(form.postTitle) }}
+        {{ form_errors(form.postTitle) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.postDescription) }}
+        {{ form_widget(form.postDescription) }}
+        {{ form_errors(form.postDescription) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.postPublished) }}
+        {{ form_widget(form.postPublished) }}
+        {{ form_errors(form.postPublished) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.postDateCreated) }}
+        {{ form_widget(form.postDateCreated) }}
+        {{ form_errors(form.postDateCreated) }}
+    </div>
+   <button class="btn bg-primary border border mt-3 text-white" type="submit">Enregistrer</button>
+{{ form_end(form) }}
+
+
+
+
