@@ -37,8 +37,13 @@ class homeController extends AbstractController
     {
         return $this->render('bloscot-master/contact.html.twig');
     }
-
+    #[Route(path: '/section', name: 'section')]
+    public function section(): Response
+    {
+        return $this->render('bloscot-master/contact.html.twig');
+    }
     
+
 
     
 }
