@@ -7,6 +7,8 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 # Entité User
 use App\Entity\User;
+# Entité Post
+use App\Entity\Post;
 # chargement du hacher de mots de passe
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -40,6 +42,11 @@ class AppFixtures extends Fixture
         // passage du mot de passe crypté
         $user->setPassword($pwdHash);
 
+        // on va mettre dans une variable de type tableau
+        // tous nos utilisateurs pour pouvoir leurs attribués
+        // des Post ou des Comment
+        $users[] = $user;
+
         // on prépare notre requête pour la transaction
         $manager->persist($user);
 
@@ -57,9 +64,43 @@ class AppFixtures extends Fixture
             // hashage du mot de passe de : user0 à user10
             $pwdHash = $this->hasher->hashPassword($user, 'user'.$i);
             $user->setPassword($pwdHash);
+            // on récupère les utilisateurs pour
+            // les post et les comments
+            $users[]=$user;
             $manager->persist($user);
         }
 
+        //dd($users);
+
+
+        ###
+        #   POST
+        # INSERTION de Post avec leurs users
+        #
+        ###
+
+        for($i=1;$i<=100;$i++){
+            $post = new Post();
+            // on prend une clef d'un User
+            // créé au-dessus
+            $keyUser = array_rand($users);
+            // on ajoute l'ajoute l'utilisateur
+            // à ce post
+            $post->setUser($users[$keyUser]);
+            // date de création (il y a 30 jours)
+            $post->setPostDateCreated(new \dateTime('now - 30 days'));
+            // Au hasard, on choisit si publié ou non (+-3 sur 4)
+            $publish = mt_rand(0,3) <3;
+            $post->setPostPublished($publish);
+            if($publish) {
+                $day = mt_rand(1, 25);
+                $post->setPostDatePublished(new \dateTime('now - ' . $day . ' days'));
+            }
+            $post->setPostTitle("Post title ".$i);
+            $post->setPostDescription('Post description '.$i);
+
+            $manager->persist($post);
+        }
 
         // validation de la transaction
         $manager->flush();
