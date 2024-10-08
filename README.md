@@ -84,3 +84,7 @@ on va emporter l'entite user pour faire des tests
 on va tester l'installation de notre fixtures
 
     php bin/console doctrine:fixtures:load
+
+    ## instalation de faker
+
+    composer require fakerphp/faker
