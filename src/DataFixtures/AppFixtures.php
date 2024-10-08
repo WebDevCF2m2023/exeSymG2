@@ -9,6 +9,9 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
 # Entité Post
 use App\Entity\Post;
+# Entité Section
+use App\Entity\Section;
+
 # chargement du hacher de mots de passe
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -78,7 +81,8 @@ class AppFixtures extends Fixture
         //dd($users);
 
         // Appel de faker avec la locale en français
-        $faker = Faker::create('fr-FR');
+        // de GelBique
+        $faker = Faker::create('fr_BE');
 
         ###
         #   POST
@@ -117,6 +121,23 @@ class AppFixtures extends Fixture
             $posts[]=$post;
 
             $manager->persist($post);
+
+        }
+
+        ###
+        #   SECTION
+        # INSERTION de Section en les liants
+        # avec des postes au hasard
+        #
+        ###
+
+        for($i=1;$i<=6;$i++){
+            $section = new Section();
+            // création d'un titre entre 2 et 5 mots
+            $title = $faker->words(mt_rand(2,5),true);
+            //$section->setSectionTitle();
+
+            $manager->persist($section);
         }
 
         // validation de la transaction
