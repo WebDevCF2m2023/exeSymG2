@@ -388,3 +388,9 @@ class AppFixtures extends Fixture
 Puis tapez :
 
     php bin/console d:f:l
+
+### Installation de `Faker`
+
+Vous le trouverez à cette adresse :
+
+https://packagist.org/packages/fakerphp/faker

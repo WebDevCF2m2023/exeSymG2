@@ -99,6 +99,10 @@ class AppFixtures extends Fixture
             $post->setPostTitle("Post title ".$i);
             $post->setPostDescription('Post description '.$i);
 
+            // on va garder les posts
+            // pour les Comment, Section et Tag
+            $posts[]=$post;
+
             $manager->persist($post);
         }
 
