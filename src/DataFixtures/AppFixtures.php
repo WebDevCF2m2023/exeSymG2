@@ -12,6 +12,9 @@ use App\Entity\Post;
 # chargement du hacher de mots de passe
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+# chargement de Faker
+use Faker\Factory;
+
 class AppFixtures extends Fixture
 {
     // Attribut privé contenant le hacheur de mot de passe
@@ -72,6 +75,8 @@ class AppFixtures extends Fixture
 
         //dd($users);
 
+        // Appel de faker
+        $faker = Factory::create('fr-FR');
 
         ###
         #   POST
@@ -96,8 +101,14 @@ class AppFixtures extends Fixture
                 $day = mt_rand(1, 25);
                 $post->setPostDatePublished(new \dateTime('now - ' . $day . ' days'));
             }
-            $post->setPostTitle("Post title ".$i);
-            $post->setPostDescription('Post description '.$i);
+            // création d'un titre entre 2 et 5 mots
+            $title = $faker->words(mt_rand(2,5),true);
+            // utilisation du titre avec le premier mot en majuscule
+            $post->setPostTitle(ucfirst($title));
+
+            // création d'un texte entre 3 et 6 paragraphes
+            $texte = $faker->paragraphs(mt_rand(3,6), true);
+            $post->setPostDescription($texte);
 
             // on va garder les posts
             // pour les Comment, Section et Tag

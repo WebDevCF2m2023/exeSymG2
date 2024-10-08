@@ -394,3 +394,8 @@ Puis tapez :
 Vous le trouverez à cette adresse :
 
 https://packagist.org/packages/fakerphp/faker
+
+Sa documentation :
+
+https://fakerphp.org/
+
