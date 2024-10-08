@@ -68,3 +68,19 @@ Comme login et mot de passe, vous pouvez utiliser `admin` et `admin` dans la tab
 La permission `ROLE_ADMIN` doit être ajoutée à l'utilisateur `admin`.
 
 Allez le plus loin possible en créant des `CRUD` pour les articles et les commentaires etc...
+
+### fixures pour nos donnees
+
+on va cree des fausse donnees pour remplire la base de donnees
+
+        pour cela on va charger : { composer require --dev orm-fixtures }
+
+on va cree notre fixtures
+
+    php bin/console make:fixtures
+
+on va emporter l'entite user pour faire des tests
+
+on va tester l'installation de notre fixtures
+
+    php bin/console doctrine:fixtures:load
