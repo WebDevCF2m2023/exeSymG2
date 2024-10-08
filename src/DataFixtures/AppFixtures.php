@@ -12,8 +12,10 @@ use App\Entity\Post;
 # chargement du hacher de mots de passe
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-# chargement de Faker
-use Faker\Factory;
+# chargement de Faker et Alias de nom
+# pour utiliser Faker plutôt que Factory
+# comme nom de classe
+use Faker\Factory AS Faker;
 
 class AppFixtures extends Fixture
 {
@@ -75,8 +77,8 @@ class AppFixtures extends Fixture
 
         //dd($users);
 
-        // Appel de faker
-        $faker = Factory::create('fr-FR');
+        // Appel de faker avec la locale en français
+        $faker = Faker::create('fr-FR');
 
         ###
         #   POST
