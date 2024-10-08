@@ -67,4 +67,20 @@ Comme login et mot de passe, vous pouvez utiliser `admin` et `admin` dans la tab
 
 La permission `ROLE_ADMIN` doit être ajoutée à l'utilisateur `admin`.
 
-Allez le plus loin possible en créant des `CRUD` pour les articles et les commentaires etc...
+Allez le plus loin possible en créant des `CRUD` pour les articles et les commentaires etc ...
+
+### Fixtures pour nos données
+
+On va créer de fausses données pour remplir notre database
+
+Documentation :
+
+https://symfony.com/bundles/DoctrineFixturesBundle/current/index.html
+
+Pour celà, on va charger :
+
+    composer require --dev orm-fixtures
+
+On va créer notre Fixture
+
+    php bin/console make:fixtures
