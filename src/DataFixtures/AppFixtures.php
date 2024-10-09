@@ -99,7 +99,9 @@ class AppFixtures extends Fixture
             // on prend une clef d'un User
             // créé au-dessus
             $keyUser = array_rand($users);
-            // on ajoutel'utilisateur
+
+            // on ajoute l'utilisateur
+
             // à ce post
             $post->setUser($users[$keyUser]);
             // date de création (il y a 30 jours)
@@ -116,8 +118,10 @@ class AppFixtures extends Fixture
             // utilisation du titre avec le premier mot en majuscule
             $post->setPostTitle(ucfirst($title));
 
+
             // création d'un texte entre 3 et 6 text
             $texte = $faker->realText(mt_rand(10,500), true);
+
             $post->setPostDescription($texte);
 
             // on va garder les posts
@@ -136,10 +140,12 @@ class AppFixtures extends Fixture
         ###
 
 
+
         for($i=1;$i<=2;$i++){
             $section = new Section();
             // création d'un titre entre 2 et 5 mots
             $title = $faker->words(mt_rand(1,1),true);
+
             $section->setSectionTitle(ucfirst($title));
             // création d'une description de maximum 500 caractères
             // en pseudo français di fr_FR
@@ -148,8 +154,11 @@ class AppFixtures extends Fixture
 
             // On va mettre dans une variable le nombre total d'articles
             $nbArticles = count($posts);
-            // on récupère un tableau d'id au hasard
-            $articleID = array_rand($posts, mt_rand(1,$nbArticles));
+
+            // on récupère un tableau d'id au hasard (on commence
+            // à car si on obtient un seul id, c'est un int et pas un array
+            $articleID = array_rand($posts, mt_rand(2,$nbArticles));
+
 
             // Attribution des articles
             // à la section en cours
@@ -173,7 +182,8 @@ class AppFixtures extends Fixture
 
             $comment = new Comment();
             // on prend une clef d'un User
-            // créé au-dessus au hasard
+            // créé au-dessus au hasard, envoie l'id en int
+
             $keyUser = array_rand($users);
             // on ajoute l'utilisateur
             // à ce commentaire
@@ -196,19 +206,27 @@ class AppFixtures extends Fixture
             $manager->persist($comment);
         }
 
-          ###
-        #   tag
-        # INSERTION de tag en les liants
+
+        ###
+        #   Tag
+        # INSERTION de 45 Tag en les liants
         # avec des Post au hasard
         #
         ###
-
-        for ($i = 1; $i < 45; $i++) {
+        for($i=1;$i<=45;$i++){
             $tag = new Tag();
-            $tag->setTagName($faker->realText(mt_rand(10,15),true));
-            $nbpost = count($posts);
-            $postID = array_rand($posts,mt_rand(1,$nbpost));
-            foreach($postID as $id){
+            # création d'un slug par Faker
+            $tag->setTagName($faker->slug(mt_rand(1,3), true));
+            # on compte le nombre d'articles
+            $nbArticles = count($posts);
+            # on en prend 1/5
+            $PostNB = (int) round($nbArticles/5);
+            # On en choisit au hasard avec maximum 20 tags ($nbArticles/5) = 100/5
+            # On choisit 2 articles minimum au hasard sinon on récupère un int
+            # et non pas un array
+            $articleID = array_rand($posts, mt_rand(2,$PostNB));
+            foreach($articleID as $id){
+                // on ajoute l'article au tag
                 $tag->addPost($posts[$id]);
             }
             $manager->persist($tag);
