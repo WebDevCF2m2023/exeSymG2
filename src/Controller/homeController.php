@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\PostRepository;
+use App\Repository\TagRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,6 +13,7 @@ class homeController extends AbstractController
     #[Route(path: '/', name: 'home')]
     public function index(): Response
     {
+
         return $this->render('bloscot-master/index.html.twig');
     }
 
@@ -21,9 +24,11 @@ class homeController extends AbstractController
     }
 
     #[Route(path: '/blog', name: 'blog')]
-    public function blog(): Response
+    public function blog(PostRepository $PostRepository): Response
     {
-        return $this->render('bloscot-master/blog.html.twig');
+        $posts = $PostRepository->findAll();
+        return $this->render('bloscot-master/blog.html.twig',["posts" => $posts]);
+
     }
 
     #[Route(path: '/features', name: 'features')]

@@ -40,9 +40,15 @@
                <div class="col-lg-8 col-sm-12">
                   <div class="about_img"><img src="images/img-8.png"></div>
                   <div class="like_icon"><img src="images/like-icon.png"></div>
-                  <p class="post_text">Post By : 09/06/2019</p>
-                  <h2 class="most_text">Most Awesome Blue Lake With Snow <br>River</h2>
-                  <p class="lorem_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis</p>
+                  {% for post in posts %}
+                  <p class="post_text">{{ post.postDatePublished ? post.postDatePublished|date('Y-m-d H:i:s') : '' }}</p>
+                  <h2 class="most_text">{{ post.postTitle }}</h2>
+                  <p class="lorem_text">{{ post.postDescription }}</p>
+                    {% else %}
+            <tr>
+                <td colspan="7">no records found </td>
+            </tr>
+        {% endfor %}
                   <div class="social_icon_main">
                      <div class="social_icon">
                         <ul>
