@@ -11,6 +11,8 @@ use App\Entity\User;
 use App\Entity\Post;
 # Entité Section
 use App\Entity\Section;
+# Entité Comment
+use App\Entity\Comment;
 
 # chargement du hacher de mots de passe
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -81,8 +83,8 @@ class AppFixtures extends Fixture
         //dd($users);
 
         // Appel de faker avec la locale en français
-        // de GelBique
-        $faker = Faker::create('fr_BE');
+        // de France
+        $faker = Faker::create('fr_FR');
 
         ###
         #   POST
@@ -95,16 +97,16 @@ class AppFixtures extends Fixture
             // on prend une clef d'un User
             // créé au-dessus
             $keyUser = array_rand($users);
-            // on ajoute l'ajoute l'utilisateur
+            // on ajoutel'utilisateur
             // à ce post
             $post->setUser($users[$keyUser]);
             // date de création (il y a 30 jours)
             $post->setPostDateCreated(new \dateTime('now - 30 days'));
-            // Au hasard, on choisit si publié ou non (+-3 sur 4)
+            // Au hasard, on choisit s'il est publié ou non (+-3 sur 4)
             $publish = mt_rand(0,3) <3;
             $post->setPostPublished($publish);
             if($publish) {
-                $day = mt_rand(1, 25);
+                $day = mt_rand(3, 25);
                 $post->setPostDatePublished(new \dateTime('now - ' . $day . ' days'));
             }
             // création d'un titre entre 2 et 5 mots
@@ -135,9 +137,60 @@ class AppFixtures extends Fixture
             $section = new Section();
             // création d'un titre entre 2 et 5 mots
             $title = $faker->words(mt_rand(2,5),true);
-            //$section->setSectionTitle();
+            $section->setSectionTitle(ucfirst($title));
+            // création d'une description de maximum 500 caractères
+            // en pseudo français di fr_FR
+            $description = $faker->realText(mt_rand(150,500));
+            $section->setSectionDescription($description);
+
+            // On va mettre dans une variable le nombre total d'articles
+            $nbArticles = count($posts);
+            // on récupère un tableau d'id au hasard
+            $articleID = array_rand($posts, mt_rand(1,$nbArticles));
+
+            // Attribution des articles
+            // à la section en cours
+            foreach($articleID as $id){
+                // entre 1 et 100 articles
+                $section->addPost($posts[$id]);
+            }
 
             $manager->persist($section);
+        }
+
+        ###
+        #   COMMENT
+        # INSERTION de Comment en les liants
+        # avec des Post au hasard et des User
+        #
+        ###
+        // on choisit le nombre de commentaires entre 250 et 350
+        $commentNB = mt_rand(250,350);
+        for($i=1;$i<=$commentNB;$i++){
+
+            $comment = new Comment();
+            // on prend une clef d'un User
+            // créé au-dessus au hasard
+            $keyUser = array_rand($users);
+            // on ajoute l'utilisateur
+            // à ce commentaire
+            $comment->setUser($users[$keyUser]);
+            // on prend une clef d'un Post
+            // créé au-dessus au hasard
+            $keyPost = array_rand($posts);
+            // on ajoute l'article
+            // de ce commentaire
+            $comment->setPost($posts[$keyPost]);
+            // écrit entre 1 et 48 heures
+            $hours = mt_rand(1,48);
+            $comment->setCommentDateCreated(new \dateTime('now - ' . $hours . ' hours'));
+            // entre 150 et 1000 caractères
+            $comment->setCommentMessage($faker->realText(mt_rand(150,1000)));
+            // Au hasard, on choisit s'il est publié ou non (+-3 sur 4)
+            $publish = mt_rand(0,3) <3;
+            $comment->setCommentPublished($publish);
+
+            $manager->persist($comment);
         }
 
         // validation de la transaction
